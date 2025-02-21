@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>kalkulator by Elizan</title>
+    <style>
+    body {
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: grey;
+    }
+    
+    .kalkulator {
+      padding: 20px;
+      border-radius: 20px;
+    }
+    
+    input {
+      width: 93%;
+      padding: 10px;
+      font-size: 20px;
+      text-align: right;
+      margin-bottom: 10px;
+      border: 1px solid black;
+      border-radius: 10px;
+    }
+      .tombol {
+        display: grid;
+        grid-template-columns:repeat(4, 1fr);
+        gap: 10px;
+      }
+      
+      button {
+        padding: 20px;
+        font-size: 18px;
+        border-radius: 100px;
+        
+      }
+    </style>
+  </head>
+  <body>
+    <div class="kalkulator">
+      <input type="text" id="display" disabled>
+      
+      <div class="tombol">
+        
+        <button onclick="appendNumber('7')">7</button>
+        <button onclick="appendNumber('8')">8</button>
+        <button onclick="appendNumber('9')">9</button>
+        <button onclick="appendOperator('+')">+</button>
+        
+        <button onclick="appendNumber('4')">4</button>
+        <button onclick="appendNumber('5')">5</button>
+        <button onclick="appendNumber('6')">6</button>
+        <button onclick="appendOperator('-')">-</button>
+        
+        <button onclick="appendNumber('1')">1</button>
+        <button onclick="appendNumber('2')">2</button>
+        <button onclick="appendNumber('3')">3</button>
+        <button onclick="appendOperator('*')">*</button>
+        
+        <button onclick="appendNumber('0')">0</button>
+        <button onclick="appendOperator('00')">00</button>
+        <button onclick="appendOperator('.')">.</button>
+        <button onclick="appendOperator('/')">/</button>
+        
+        <button onclick="deleteLastCharacter()"
+        class="hapus">del</button>
+        <button onclick="calculate()" class="samadengan">=</button>
+        
+        
+      </div>
+    </div>
+    
+    <script>
+      let display = document.getElementById('display');
+    let currentInput = '';
+
+    function appendNumber(number) {
+        currentInput += number;
+        display.value = currentInput;
+    }
+
+    function appendOperator(operator) {
+        if (currentInput !== '' && !['+', '-', '*', '/'].includes(currentInput.slice(-1))) {
+            currentInput += operator;
+            display.value = currentInput;
+        }
+    }
+
+    function deleteLastCharacter() {
+        currentInput = currentInput.slice(0, -1);
+        display.value = currentInput;
+    }
+
+
+    function calculate() {
+        try {
+            // Mengganti persen dengan pembagian 100
+   currentInput = currentInput.replace(/%/g, '/100');
+   currentInput = eval(currentInput).toString();
+            display.value = currentInput;
+        } catch (error) {
+            display.value = 'Error';
+   currentInput = '';
+        }
+    }
+    </script>
+  </body>
+</html>
