@@ -4,6 +4,7 @@
     <title>kalkulator by Elizan</title>
     <style>
     body {
+    	display: flex;
       align-items: center;
       height: 100vh;
       margin: 0;
@@ -36,6 +37,18 @@
         border-radius: 100px;
         
       }
+
+      .hapus{
+      	background: red;
+      }
+
+      .samadengan{
+      	background: green;
+      }
+
+      .opera {
+      	background: gold;
+      }
     </style>
   </head>
   <body>
@@ -47,22 +60,22 @@
         <button onclick="appendNumber('7')">7</button>
         <button onclick="appendNumber('8')">8</button>
         <button onclick="appendNumber('9')">9</button>
-        <button onclick="appendOperator('+')">+</button>
+        <button onclick="appendOperator('+')" class="opera" >+</button>
         
         <button onclick="appendNumber('4')">4</button>
         <button onclick="appendNumber('5')">5</button>
         <button onclick="appendNumber('6')">6</button>
-        <button onclick="appendOperator('-')">-</button>
+        <button onclick="appendOperator('-')" class="opera" >-</button>
         
         <button onclick="appendNumber('1')">1</button>
         <button onclick="appendNumber('2')">2</button>
         <button onclick="appendNumber('3')">3</button>
-        <button onclick="appendOperator('*')">*</button>
+        <button onclick="appendOperator('*')" class="opera" >*</button>
         
         <button onclick="appendNumber('0')">0</button>
         <button onclick="appendOperator('00')">00</button>
         <button onclick="appendOperator('.')">.</button>
-        <button onclick="appendOperator('/')">/</button>
+        <button onclick="appendOperator('/')" class="opera" >/</button>
         
         <button onclick="deleteLastCharacter()"
         class="hapus">del</button>
@@ -73,38 +86,49 @@
     </div>
     
     <script>
-      let display = document.getElementById('display');
-    let currentInput = '';
+let display = document.getElementById('display');
+let hitung = '';
 
-    function appendNumber(number) {
-        currentInput += number;
-        display.value = currentInput;
+function appendNumber(number) {
+    hitung += number;
+    display.value = hitung;
+}
+
+function appendOperator(operator) {
+    if (hitung !== '' && !['+', '-', '*', '/'].includes(hitung.slice(-1))) {
+        hitung += operator;
+        display.value = hitung;
     }
+}
 
-    function appendOperator(operator) {
-        if (currentInput !== '' && !['+', '-', '*', '/'].includes(currentInput.slice(-1))) {
-            currentInput += operator;
-            display.value = currentInput;
+function deleteLastCharacter() {
+    hitung = hitung.slice(0, -1);
+    display.value = hitung;
+}
+
+function calculate() {
+    try {
+        
+        hitung = hitung.replace(/%/g, '/100');
+
+        // untok nanganek operator yang banyak atau beurutan
+        hitung = hitung.replace(/(\+\+|\--|\*\*|\/\/|--|\+\-|\-\+|\*\/|\/\*)/g, (match) => match[0]);
+
+        let result = eval(hitung);
+
+        // care ngatasek infinity
+        if (result === Infinity || result === -Infinity) {
+            throw new Error('Infinity');
         }
-    }
 
-    function deleteLastCharacter() {
-        currentInput = currentInput.slice(0, -1);
-        display.value = currentInput;
+        hitung = result.toString();
+        display.value = hitung;
+    } catch (error) {
+        display.value = 'Error';
+        hitung = '';
     }
+}
 
-
-    function calculate() {
-        try {
-            // Mengganti persen dengan pembagian 100
-   currentInput = currentInput.replace(/%/g, '/100');
-   currentInput = eval(currentInput).toString();
-            display.value = currentInput;
-        } catch (error) {
-            display.value = 'Error';
-   currentInput = '';
-        }
-    }
     </script>
   </body>
 </html>
