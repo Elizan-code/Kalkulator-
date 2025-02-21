@@ -48,11 +48,6 @@ Pilih operator untuk melakukan operasi matematika.
 Gunakan tombol "del" jika ingin menghapus angka terakhir yang diketik.
 Tekan tombol "=" untuk melihat hasil perhitungan.
 Jika terjadi error, layar akan menampilkan "Error", dan input akan direset.
-5. Pengembangan Selanjutnya (Ide Peningkatan)
-🔹 Menambahkan tombol persen (%) untuk perhitungan persentase.
-🔹 Memperbaiki input agar lebih fleksibel dengan keyboard.
-🔹 Menambahkan tema gelap/terang untuk variasi tampilan.
-🔹 Menggunakan algoritma parsing ekspresi matematika yang lebih aman dibanding eval().
 
 Kesimpulan
 Kalkulator ini merupakan proyek sederhana namun fungsional yang dapat digunakan untuk melakukan perhitungan matematika dasar dengan tampilan yang menarik dan mudah digunakan. Dengan tambahan fitur dan peningkatan di masa depan, kalkulator ini bisa menjadi lebih canggih dan user-friendly.
